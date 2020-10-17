@@ -1,3 +1,4 @@
+import { ElementryClass } from './../../services/class.model';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -12,33 +13,52 @@ import { Assignment } from 'src/app/services/assignment.model';
 })
 export class TaskDeliveryComponent implements OnInit {
   myControl = new FormControl();
-  selectedClass: number;
+  selectedClassId: string;
   options: string[] = [];
-  names: string[][] = [
-    ['ערן קרקובסקי', 'עומר קרקובסקי', 'לירן גזית'],
-    ['לאה שמיר', 'יובל גזית', 'ליאור גזית'],
-  ];
+
   filteredOptions: Observable<string[]>;
   assignments: Assignment[];
+  selectedAssignment: Assignment;
+  classes: ElementryClass[];
+  selectClass: ElementryClass;
+  studentName: string;
   constructor(private taskService: TaskService) {}
   ngOnInit(): void {
     this.assignments = this.taskService.getAssigments();
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map((value) => this._filter(value))
-    );
+    this.classes = this.taskService.getClasses();
   }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.options.filter((option) =>
       option.toLowerCase().includes(filterValue)
     );
   }
 
   changeClass() {
-    this.options = this.names[this.selectedClass];
+    this.studentName = '';
+    this.options = this.taskService.getStudentNames(this.selectedClassId);
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value))
+    );
+  }
+  validForm() {
+    return (
+      this.selectedAssignment != null &&
+      this.selectedClassId != null &&
+      this.studentName != ''
+    );
+  }
+  onUploadInit(args: any): void {
+    console.log('onUploadInit:', args);
   }
 
+  onUploadError(args: any): void {
+    console.log('onUploadError:', args);
+  }
+
+  onUploadSuccess(args: any): void {
+    console.log('onUploadSuccess:', args);
+  }
   onSubmit(form: NgForm) {}
 }

@@ -1,32 +1,30 @@
 <section class="signup-form">
-    <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
         <mat-form-field appearance="fill">
             <mat-label>שם משימה</mat-label>
-            <mat-select appearance="fill">
+            <mat-select appearance="fill" [(ngModel)]="selectedAssignment">
                 <mat-option *ngFor="let assignment of assignments" [value]="assignment.id">{{ assignment.name }}</mat-option>
             </mat-select>
         </mat-form-field>
         <div class="class-radio" fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px">
             <label id="radio-class-label">בחר כיתה</label>
-            <mat-radio-group aria-label="radio-class-label" fxLayoutGap="10px" required [(ngModel)]="selectedClass" (change)="changeClass()">
-                <mat-radio-button color="primary" value="0">כיתה ד'1</mat-radio-button>
-                <mat-radio-button color="primary" value="1">כיתה ד'2</mat-radio-button>
+            <mat-radio-group aria-label="radio-class-label" fxLayout="column" fxLayoutGap="10px" [(ngModel)]="selectedClassId" (change)="changeClass()">
+                <mat-radio-button color="primary" *ngFor="let class of classes" [value]="class.id">{{ class.name }}</mat-radio-button>
             </mat-radio-group>
         </div>
         <mat-form-field>
             <mat-label>שם התלמיד</mat-label>
-            <input type="txt" matInput placeholder="שם התלמיד" ngModel name="name" id="name" required [formControl]="myControl" [matAutocomplete]="auto" />
+            <input type="txt" matInput placeholder="שם התלמיד" [(ngModel)]="studentName" [formControl]="myControl" [matAutocomplete]="auto" />
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                 <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                     {{ option }}
                 </mat-option>
             </mat-autocomplete>
-
-            <!-- <mat-error>enter a valid email</mat-error> -->
         </mat-form-field>
+        <div class="dropzone" dropzone (hovered)="toggleHover($event)" (dropped)="onDrop($event)" [class.hovering]="isHovering">
 
-        <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">
-      Sign Up
+            <button mat-raised-button [disabled]="!validForm()" color="primary">
+      הגשה
     </button>
-    </form>
+        </div>
 </section>

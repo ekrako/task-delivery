@@ -3,7 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  dropzone: {
+    // Change this to your upload POST address:
+    url: 'https://httpbin.org/post',
+    maxFilesize: 50,
+    acceptedFiles: 'image/*',
+  },
 };
 
 /*
