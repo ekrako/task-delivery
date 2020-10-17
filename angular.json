@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "task-delivery"
+  "defaultProject": "task-delivery",
+  "cli": {
+    "analytics": "9e64c5a0-f176-4225-9844-5e974139afd0"
+  }
 }

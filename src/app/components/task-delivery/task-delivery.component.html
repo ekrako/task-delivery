@@ -1,11 +1,9 @@
-<section class="signup-form" dir="rtl" lang="he">
+<section class="signup-form">
     <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #f="ngForm" (ngSubmit)="onSubmit(f)">
         <mat-form-field appearance="fill">
             <mat-label>שם משימה</mat-label>
-            <mat-select required>
-                <mat-option value="option1">משימה 1</mat-option>
-                <mat-option value="option2">משימה 2</mat-option>
-                <mat-option value="option3">משימה 3</mat-option>
+            <mat-select appearance="fill">
+                <mat-option *ngFor="let assignment of assignments" [value]="assignment.id">{{ assignment.name }}</mat-option>
             </mat-select>
         </mat-form-field>
         <div class="class-radio" fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px">

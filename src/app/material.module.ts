@@ -9,6 +9,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatSelectModule,
     MatRadioModule,
     MatAutocompleteModule,
+    MatToolbarModule,
   ],
   exports: [
     MatButtonModule,
@@ -30,6 +32,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatSelectModule,
     MatRadioModule,
     MatAutocompleteModule,
+    MatToolbarModule,
   ],
 })
 export class MaterialModule {}
